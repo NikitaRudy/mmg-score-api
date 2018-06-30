@@ -35,8 +35,15 @@ app.get('/', async (req, res) => {
 });
 app.post('/', async (req, res) => {
     try {
-        const result = await Result.findOne(req.body)
+        const result = Pormise.all([
+            Result.findOne({ username: body.username }),
+            Result.findOne({ email: body.email }),
+        ]);
         
+        if (result.some(Boolean)) {
+            throw new Error('username/email already exsists');
+        }
+
         res.json(
             null,
             await new Result(req.body).save(),
