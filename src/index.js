@@ -38,6 +38,7 @@ app.post('/', async (req, res) => {
         const result = await Result.findOne(req.body)
         
         res.json(
+            null,
             await new Result(req.body).save(),
             'saved',
         );

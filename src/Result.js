@@ -21,6 +21,6 @@ const resultSchema = mongoose.Schema({
         min: 0,
         required: true,
     }
-});
+}, { timestamps: {} });
 
 module.exports = mongoose.model('Result', resultSchema);
