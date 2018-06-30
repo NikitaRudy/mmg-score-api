@@ -5,12 +5,12 @@ function formatResponse(err, data, message) {
         result: data,
         links: [
            {
-                href: 'localhost:8080',
+                href: 'https://mmg-score.herokuapp.com/',
                 rel: 'get full score',
                 method: 'GET',
            },
            {
-               href: 'localhost:8080',
+               href: 'https://mmg-score.herokuapp.com/',
                rel: 'save single score result',
                method: 'POST',
                body: 'username=Nikita&email=randomemail@box.com&score=10',
