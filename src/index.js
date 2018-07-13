@@ -35,15 +35,6 @@ app.get('/', async (req, res) => {
 });
 app.post('/', async (req, res) => {
     try {
-        const result = await Promise.all([
-            Result.findOne({ username: req.body.username }),
-            Result.findOne({ email: req.body.email }),
-        ]);
-        
-        if (result.some(Boolean)) {
-            throw new Error('username/email already exsists');
-        }
-
         res.json(
             formatResponse(
                 null,
