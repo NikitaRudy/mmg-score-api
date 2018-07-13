@@ -38,7 +38,11 @@ app.post('/', async (req, res) => {
         res.json(
             formatResponse(
                 null,
-                await new Result(req.body).save(),
+                await Result.update(
+                    { username: req.body.username },
+                    req.body,
+                    { upsert: true }
+                ),
                 'saved',
             )
         );
