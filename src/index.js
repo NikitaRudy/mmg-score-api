@@ -35,9 +35,9 @@ app.get('/', async (req, res) => {
 });
 app.post('/', async (req, res) => {
     try {
-        const result = Pormise.all([
-            Result.findOne({ username: body.username }),
-            Result.findOne({ email: body.email }),
+        const result = await Promise.all([
+            Result.findOne({ username: req.body.username }),
+            Result.findOne({ email: req.body.email }),
         ]);
         
         if (result.some(Boolean)) {
@@ -45,13 +45,15 @@ app.post('/', async (req, res) => {
         }
 
         res.json(
-            null,
-            await new Result(req.body).save(),
-            'saved',
+            formatResponse(
+                null,
+                await new Result(req.body).save(),
+                'saved',
+            )
         );
     } catch (error) {
         res.status(400).json(
-            formatResponse({ ...error, code: 400 }, null, 'an error occured')
+            formatResponse(error, null, 'an error occured')
         );
     }
 });

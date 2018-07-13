@@ -1,6 +1,6 @@
 function formatResponse(err, data, message) {
     return {
-        error: { code: err ? err.code : 0 },
+        error: { code: err ? (err.code || 1) : 0 },
         message: err ? err.message : message,
         result: data,
         links: [
