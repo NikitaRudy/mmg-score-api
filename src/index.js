@@ -35,17 +35,25 @@ app.get('/', async (req, res) => {
 });
 app.post('/', async (req, res) => {
     try {
+        const result = await Result.findOne({ username: req.body.username });
+
+        const document = result
+            ? await Result.findOneAndUpdate(
+                { username: req.body.username },
+                req.body,
+                { runValidators: true, new: true }, 
+            )
+            : await new Result(req.body).save();
+
         res.json(
             formatResponse(
                 null,
-                await Result.update(
-                    { username: req.body.username },
-                    req.body,
-                    { upsert: true }
-                ),
+                document,
                 'saved',
             )
         );
+
+        
     } catch (error) {
         res.status(400).json(
             formatResponse(error, null, 'an error occured')

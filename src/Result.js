@@ -7,8 +7,11 @@ const resultSchema = mongoose.Schema({
     username: {
         type: String,
         required: true,
-        minLength: 3,
-        maxLength: 20,
+        validate(name) {
+            return (typeof name === 'string' || name instanceof String)
+            && name.length < 20 && name.length > 2;
+        },
+        message: '{VALUE} is not a valid username'
     },
     email: {
         type: String,
